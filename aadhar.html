@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aadhar Validation</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, white,white);
+    color: #333;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  .container {
+    background: white;
+    max-width: 400px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    padding: 30px 40px;
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 25px;
+    color: #4a3fbd;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #4a3fbd;
+    text-align: left;
+  }
+  input[type="text"] {
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1.8px solid #b3b3b3;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus {
+    border-color: #4a3fbd;
+    outline: none;
+  }
+  button {
+    background-color: #4a3fbd;
+    color: white;
+    font-weight: 600;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #3a2f8d;
+  }
+  .message {
+    margin-top: 20px;
+    font-weight: 600;
+  }
+  .error {
+    color: #e74c3c;
+  }
+  .success {
+    color: #27ae60;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Aadhar Validation</h1>
+  <form id="validateForm">
+    <label for="aadhar">Aadhar Number</label>
+    <input type="text" id="aadhar" name="aadhar" maxlength="12" placeholder="Enter 12-digit Aadhar" pattern="\d{12}" required />
+
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" placeholder="Enter Full Name" required />
+
+    <button type="submit">Validate</button>
+  </form>
+  <div id="message" class="message"></div>
+</div>
+
+<script>
+  document.getElementById('validateForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const messageDiv = document.getElementById('message');
+    messageDiv.textContent = '';
+    messageDiv.className = 'message';
+
+    const aadhar = e.target.aadhar.value.trim();
+    const name = e.target.name.value.trim();
+
+    // Basic client-side validation
+    if (!/^\d{12}$/.test(aadhar)) {
+      messageDiv.textContent = 'Aadhar must be exactly 12 digits';
+      messageDiv.classList.add('error');
+      return;
+    }
+    if (name.length < 3) {
+      messageDiv.textContent = 'Please enter a valid name';
+      messageDiv.classList.add('error');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3003/validate', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ aadhar, name }),
+      });
+
+      const data = await response.json();
+
+      if (data.valid) {
+        messageDiv.textContent = 'Validation successful! You can proceed.';
+        messageDiv.classList.add('success');
+        window.location.href = 'http://localhost:3027';
+        // Here you can redirect or display an application form
+        // window.location.href = 'application-form.html'; // example
+      } else {
+        messageDiv.textContent = data.message || 'Validation failed.';
+        messageDiv.classList.add('error');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      messageDiv.textContent = 'Server error. Please try again later.';
+      messageDiv.classList.add('error');
+    }
+  });
+</script>
+</body>
+</html>
