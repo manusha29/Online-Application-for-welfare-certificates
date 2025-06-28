@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Application Submitted</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .tick-icon {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1.5rem;
+    stroke: #fff;
+    stroke-width: 5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Animate circle and checkmark stroke drawing */
+  .circle {
+    stroke-dasharray: 157; /* circumference of circle (2 * pi * r, r=25) */
+    stroke-dashoffset: 157;
+    animation: drawCircle 1s ease forwards;
+  }
+
+  .check {
+    stroke-dasharray: 48; /* approximate length of check */
+    stroke-dashoffset: 48;
+    animation: drawCheck 0.6s ease forwards;
+    animation-delay: 1s;
+  }
+
+  @keyframes drawCircle {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes drawCheck {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  h1 {
+    font-size: 2.6rem;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    user-select: none;
+  }
+</style>
+</head>
+<body>
+  <svg class="tick-icon" viewBox="0 0 52 52" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" >
+    <circle class="circle" cx="26" cy="26" r="25" stroke="#ffffffdd" stroke-width="5" fill="none"/>
+    <path class="check" d="M14 27l8 8 16-18" stroke="#fff" stroke-width="5" fill="none" />
+  </svg>
+  <h1>APPLICATION FORM HAS SUBMITTED</h1>
+  <h2 class="crt"><button onclick="openNewWindow9()">CERTIFICATE</button></h2>
+<script>
+  function openNewWindow9(){
+    window.open("main.html","_self")
+  }
+</script>
+</body>
+</html>

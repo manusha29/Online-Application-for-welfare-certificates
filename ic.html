@@ -1,0 +1,531 @@
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Application for Identity Certificates</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  body {
+    font-family: 'Roboto', sans-serif;
+    background:white;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  .container {
+    max-width: 700px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    padding: 30px 40px;
+  }
+  h1 {
+    text-align: center;
+    color: #4a148c;
+    margin-bottom: 30px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    user-select: none;
+  }
+  .language-switch {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  .language-button {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    font-size: 16px;
+    margin-left: 10px;
+    color: #4a148c;
+    padding: 6px 15px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    user-select: none;
+  }
+  .language-button.active,
+  .language-button:hover {
+    background-color: #4a148c;
+    color: white;
+  }
+  form {
+    display: grid;
+    gap: 20px;
+  }
+  label {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    user-select: none;
+    color: #4a148c;
+  }
+  label span {
+    flex: 1;
+  }
+  .mic-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  .mic-button {
+    cursor: pointer;
+    background: #7e57c2;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    transition: background-color 0.3s;
+  }
+  .mic-button:hover {
+    background: #512da8;
+  }
+  input[type="text"],
+  input[type="date"],
+  select,
+  textarea {
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    resize: vertical;
+  }
+  input[type="text"]:focus,
+  input[type="date"]:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #4a148c;
+  }
+  textarea {
+    min-height: 70px;
+  }
+  .submit-button {
+    background: #4a148c;
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    user-select: none;
+  }
+  .submit-button:hover {
+    background: #330b5c;
+  }
+  .status-message {
+    margin-top: 15px;
+    font-weight: 600;
+    color: #2e7d32;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="form-header">APPLICATION FOR IDENTITY CERTIFICATES</h1>
+    <div class="language-switch">
+      <button id="btn-en" class="language-button active" aria-pressed="true" aria-label="Select English">English</button>
+      <button id="btn-te" class="language-button" aria-pressed="false" aria-label="Select Telugu">తెలుగు</button>
+    </div>
+    <form action="/post"id="application-form" autocomplete="off" method="post"novalidate>
+      <div>
+        <label for="name"><span id="label-name">Name</span>
+          <div class="mic-buttons">
+            <button type="button" class="mic-button" title="Listen Label" data-label-key="name" aria-label="Listen Name Label"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16 7v10h2V7h-2zM20 3v14h2V3h-2z"/></svg></button>
+            <button type="button" class="mic-button" title="Speak to input Name" data-input-for="name" aria-label="Speak input for Name"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zm5 8a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0z"/><path d="M12 19.5c-1.38 0-2.5 1.12-2.5 2.5h5c0-1.38-1.12-2.5-2.5-2.5z"/></svg></button>
+          </div>
+        </label>
+        <input type="text" id="name" name="name" placeholder="" required autocomplete="off"/>
+      </div>
+      <div>
+        <label for="dob"><span id="label-dob">DateofBirth</span>
+          <div class="mic-buttons">
+            <button type="button" class="mic-button" title="Listen Label" data-label-key="dob" aria-label="Listen Date of Birth Label"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16 7v10h2V7h-2zM20 3v14h2V3h-2z"/></svg></button>
+            <button type="button" class="mic-button" title="Speak to input Date of Birth" data-input-for="dob" aria-label="Speak input for Date of Birth"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zm5 8a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0z"/><path d="M12 19.5c-1.38 0-2.5 1.12-2.5 2.5h5c0-1.38-1.12-2.5-2.5-2.5z"/></svg></button>
+          </div>
+        </label>
+        <input type="date" id="dob" name="dob" required autocomplete="off"/>
+      </div>
+      <div>
+        <label for="placeOfBirth"><span id="label-placeOfBirth">PlaceofBirth</span>
+          <div class="mic-buttons">
+            <button type="button" class="mic-button" title="Listen Label" data-label-key="placeOfBirth" aria-label="Listen Place of Birth Label"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16 7v10h2V7h-2zM20 3v14h2V3h-2z"/></svg></button>
+            <button type="button" class="mic-button" title="Speak to input Place of Birth" data-input-for="placeOfBirth" aria-label="Speak input for Place of Birth"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zm5 8a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0z"/><path d="M12 19.5c-1.38 0-2.5 1.12-2.5 2.5h5c0-1.38-1.12-2.5-2.5-2.5z"/></svg></button>
+          </div>
+        </label>
+        <input type="text" id="placeOfBirth" name="placeOfBirth" placeholder="" required autocomplete="off"/>
+      </div>
+      <div>
+        <label for="registrationNumber"><span id="label-registrationNumber">RegistrationNumber</span>
+          <div class="mic-buttons">
+            <button type="button" class="mic-button" title="Listen Label" data-label-key="registrationNumber" aria-label="Listen Registration Number Label"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16 7v10h2V7h-2zM20 3v14h2V3h-2z"/></svg></button>
+            <button type="button" class="mic-button" title="Speak to input Registration Number" data-input-for="registrationNumber" aria-label="Speak input for Registration Number"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zm5 8a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0z"/><path d="M12 19.5c-1.38 0-2.5 1.12-2.5 2.5h5c0-1.38-1.12-2.5-2.5-2.5z"/></svg></button>
+          </div>
+        </label>
+        <input type="text" id="registrationNumber" name="registrationNumber" placeholder="" required autocomplete="off"/>
+      </div>
+      <div>
+        <label for="gender"><span id="label-gender">Gender</span>
+          <div class="mic-buttons">
+            <button type="button" class="mic-button" title="Listen Label" data-label-key="gender" aria-label="Listen Gender Label"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16 7v10h2V7h-2zM20 3v14h2V3h-2z"/></svg></button>
+            <button type="button" class="mic-button" title="Speak to input Gender" data-input-for="gender" aria-label="Speak input for Gender"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zm5 8a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0z"/><path d="M12 19.5c-1.38 0-2.5 1.12-2.5 2.5h5c0-1.38-1.12-2.5-2.5-2.5z"/></svg></button>
+          </div>
+        </label>
+        <select id="gender" name="gender" required aria-required="true">
+          <option value="" disabled selected>Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div>
+        <label for="fatherName"><span id="label-fatherName">FatherName</span>
+          <div class="mic-buttons">
+            <button type="button" class="mic-button" title="Listen Label" data-label-key="fatherName" aria-label="Listen Father's Name Label"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16 7v10h2V7h-2zM20 3v14h2V3h-2z"/></svg></button>
+            <button type="button" class="mic-button" title="Speak to input Father's Name" data-input-for="fatherName" aria-label="Speak input for Father's Name"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zm5 8a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0z"/><path d="M12 19.5c-1.38 0-2.5 1.12-2.5 2.5h5c0-1.38-1.12-2.5-2.5-2.5z"/></svg></button>
+          </div>
+        </label>
+        <input type="text" id="fatherName" name="fatherName" placeholder="" required autocomplete="off"/>
+      </div>
+      <div>
+        <label for="motherName"><span id="label-motherName">MotherName</span>
+          <div class="mic-buttons">
+            <button type="button" class="mic-button" title="Listen Label" data-label-key="motherName" aria-label="Listen Mother's Name Label"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16 7v10h2V7h-2zM20 3v14h2V3h-2z"/></svg></button>
+            <button type="button" class="mic-button" title="Speak to input Mother's Name" data-input-for="motherName" aria-label="Speak input for Mother's Name"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zm5 8a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0z"/><path d="M12 19.5c-1.38 0-2.5 1.12-2.5 2.5h5c0-1.38-1.12-2.5-2.5-2.5z"/></svg></button>
+          </div>
+        </label>
+        <input type="text" id="motherName" name="motherName" placeholder="" required autocomplete="off"/>
+      </div>
+      <div>
+        <label for="permanentAddress"><span id="label-permanentAddress">PermanentAddress</span>
+          <div class="mic-buttons">
+            <button type="button" class="mic-button" title="Listen Label" data-label-key="permanentAddress" aria-label="Listen Permanent Address Label"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16 7v10h2V7h-2zM20 3v14h2V3h-2z"/></svg></button>
+            <button type="button" class="mic-button" title="Speak to input Permanent Address" data-input-for="permanentAddress" aria-label="Speak input for Permanent Address"><svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18" viewBox="0 0 24 24" width="18"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zm5 8a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0z"/><path d="M12 19.5c-1.38 0-2.5 1.12-2.5 2.5h5c0-1.38-1.12-2.5-2.5-2.5z"/></svg></button>
+          </div>
+        </label>
+        <textarea id="permanentAddress" name="permanentAddress" placeholder="" required autocomplete="off"></textarea>
+      </div>
+      <button type="submit" class="submit-button" aria-label="Submit Application Form">Submit</button>
+      <div id="status-message" class="status-message" role="alert" aria-live="polite"></div>
+    </form>
+  </div>
+
+<script>
+(function() {
+  'use strict';
+
+  // Label texts in English and Telugu
+  const labelsText = {
+    en: {
+      header: "APPLICATION FOR IDENTITY CERTIFICATES",
+      name: "Name",
+      dob: "Date of Birth",
+      placeOfBirth: "Place of Birth",
+      registrationNumber: "Registration Number",
+      gender: "Gender",
+      fatherName: "Father's Name",
+      motherName: "Mother's Name",
+      permanentAddress: "Permanent Address",
+      genderOptions: ["Select gender", "Male", "Female", "Other"],
+    },
+    te: {
+      header: "గుర్తింపు సర్టిఫికెట్లకు అభ్యర్థన ఫారం",
+      name: "పేరు",
+      dob: "పుట్టిన తేది",
+      placeOfBirth: "పుట్టిన ప్రదేశం",
+      registrationNumber: "నమోదు సంఖ్య",
+      gender: "లింగం",
+      fatherName: "తండ్రి పేరు",
+      motherName: "మాతృ పేరు",
+      permanentAddress: "శాశ్వత చిరునామా",
+      genderOptions: ["లింగం ఎంచుకోండి", "పురుషుడు", "స్త్రీ", "ఇతరము"],
+    }
+  };
+
+  // Current language state
+  let currentLang = 'en';
+
+  // References to DOM
+  const form = document.getElementById('application-form');
+  const statusMessage = document.getElementById('status-message');
+  const langBtnEn = document.getElementById('btn-en');
+  const langBtnTe = document.getElementById('btn-te');
+
+  // Label elements to update
+  const labelElements = {
+    name: document.getElementById('label-name'),
+    dob: document.getElementById('label-dob'),
+    placeOfBirth: document.getElementById('label-placeOfBirth'),
+    registrationNumber: document.getElementById('label-registrationNumber'),
+    gender: document.getElementById('label-gender'),
+    fatherName: document.getElementById('label-fatherName'),
+    motherName: document.getElementById('label-motherName'),
+    permanentAddress: document.getElementById('label-permanentAddress'),
+    header: document.getElementById('form-header'),
+  };
+
+  const genderSelect = document.getElementById('gender');
+
+  // Speech Synthesis setup
+  let synth = window.speechSynthesis;
+
+  // Helper: Get voice with lang prefix (if available)
+  function getVoiceByLangPrefix(prefix) {
+    if (!synth) return null;
+    const voices = synth.getVoices();
+    // Prefer female voices if available
+    let voice = voices.find(v => v.lang.startsWith(prefix) && v.name.toLowerCase().includes('female'));
+    if (!voice) voice = voices.find(v => v.lang.startsWith(prefix));
+    return voice || null;
+  }
+
+  // Text to speech for label
+  function speakLabelText(labelKey) {
+    if (!synth) {
+      alert("Speech Synthesis not supported in this browser.");
+      return;
+    }
+    const utteranceText = labelsText[currentLang][labelKey];
+    if (!utteranceText) return;
+    let utterance = new SpeechSynthesisUtterance(utteranceText);
+    // Set language and voice
+    if (currentLang === 'en') {
+      utterance.lang = 'en-US';
+    } else if (currentLang === 'te') {
+      utterance.lang = 'te-IN';
+    }
+    // Optionally set voice from available voices
+    let voice = getVoiceByLangPrefix(utterance.lang);
+    if (voice) utterance.voice = voice;
+
+    synth.cancel();
+    synth.speak(utterance);
+  }
+
+  // Voice input (speech recognition)
+  function startVoiceInputForField(fieldId) {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert("Speech Recognition not supported in this browser.");
+      return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = new SpeechRecognition();
+    recognition.lang = currentLang === 'en' ? 'en-US' : 'te-IN';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      statusMessage.style.color = '#2e7d32';
+      statusMessage.textContent = (currentLang === 'en') ? "Listening..." : "శ్రవణం...";
+      console.log("Speech recognition started");
+    };
+    recognition.onerror = (event) => {
+      statusMessage.style.color = '#c62828';
+      statusMessage.textContent = (currentLang === 'en') ? "Error occurred in recognition: " + event.error : "గమనిక లో లోపం: " + event.error;
+      console.error("Speech recognition error:", event.error);
+    };
+    recognition.onend = () => {
+      // Clear listening message if no result
+      setTimeout(() => {
+        if (statusMessage.textContent === (currentLang === 'en' ? "Listening..." : "శ్రవణం...")) {
+          statusMessage.textContent = '';
+        }
+      }, 1000);
+      console.log("Speech recognition ended");
+    };
+
+    recognition.onresult = (event) => {
+      const recognizedText = event.results[0][0].transcript;
+      console.log("Recognized text:", recognizedText);
+
+      const inputField = document.getElementById(fieldId);
+      if (!inputField) return;
+
+      if (inputField.tagName.toLowerCase() === 'select') {
+        // For gender select, do partial case-insensitive match of recognized text with options
+        const options = Array.from(inputField.options);
+        let matchedOption = null;
+        const recTextLower = recognizedText.toLowerCase().trim();
+        for (let option of options) {
+          if (option.disabled) continue;
+          const optTextLower = option.text.toLowerCase();
+          if (optTextLower === recTextLower || optTextLower.includes(recTextLower) || recTextLower.includes(optTextLower)) {
+            matchedOption = option;
+            break;
+          }
+        }
+        if (matchedOption) {
+          inputField.value = matchedOption.value;
+          statusMessage.style.color = '#2e7d32';
+          statusMessage.textContent = (currentLang === 'en') ? `Input recognized: ${matchedOption.text}` : `నీకృతం: ${matchedOption.text}`;
+        } else {
+          statusMessage.style.color = '#c62828';
+          statusMessage.textContent = (currentLang === 'en') ? `Could not match "${recognizedText}" to options.` : `"${recognizedText}" ఎంపికలతో సరిపోలలేదు.`;
+        }
+      } else if(inputField.type === "date") {
+        // For date input, try to parse recognized text date if possible (simple fallback)
+        // Speech recognition for date might not be reliable; just show recognized text as info
+        statusMessage.style.color = '#c62828';
+        statusMessage.textContent = (currentLang === 'en') ? 
+          "Please enter date manually or via keyboard." : 
+          "తేదీని సక్రమంగా ఎంచుకోండి.";
+      } else {
+        // For other input/textarea fill the recognized text
+        inputField.value = recognizedText;
+        statusMessage.style.color = '#2e7d32';
+        statusMessage.textContent = (currentLang === 'en') ? `Input recognized: ${recognizedText}` : `నీకృతం: ${recognizedText}`;
+      }
+    };
+
+    recognition.start();
+  }
+
+  // Update all labels and gender options per language
+  function updateLabels() {
+    Object.keys(labelElements).forEach(key => {
+      if (labelsText[currentLang][key]) {
+        labelElements[key].textContent = labelsText[currentLang][key];
+      }
+    });
+    // Update gender select options
+    const optionsText = labelsText[currentLang].genderOptions;
+    if (optionsText && optionsText.length) {
+      // Clear existing options
+      genderSelect.innerHTML = '';
+      optionsText.forEach((optText, idx) => {
+        const option = document.createElement('option');
+        option.value = idx === 0 ? '' : optText; // First option is placeholder with empty value
+        option.disabled = idx === 0 ? true : false;
+        option.selected = idx === 0 ? true : false;
+        option.textContent = optText;
+        genderSelect.appendChild(option);
+      });
+    }
+  }
+
+  // Switch language buttons UI
+  function updateLanguageButtonsUI() {
+    if (currentLang === 'en') {
+      langBtnEn.classList.add('active');
+      langBtnEn.setAttribute('aria-pressed', 'true');
+      langBtnTe.classList.remove('active');
+      langBtnTe.setAttribute('aria-pressed', 'false');
+    } else {
+      langBtnTe.classList.add('active');
+      langBtnTe.setAttribute('aria-pressed', 'true');
+      langBtnEn.classList.remove('active');
+      langBtnEn.setAttribute('aria-pressed', 'false');
+    }
+  }
+
+  // Event listeners for language buttons
+  langBtnEn.addEventListener('click', () => {
+    if (currentLang !== 'en') {
+      currentLang = 'en';
+      updateLabels();
+      updateLanguageButtonsUI();
+      statusMessage.textContent = '';
+    }
+  });
+  langBtnTe.addEventListener('click', () => {
+    if (currentLang !== 'te') {
+      currentLang = 'te';
+      updateLabels();
+      updateLanguageButtonsUI();
+      statusMessage.textContent = '';
+    }
+  });
+
+  // Delegate mic buttons click
+  form.addEventListener('click', (e) => {
+    const target = e.target.closest('button.mic-button');
+    if (!target) return;
+    e.preventDefault();
+    // If button has data-label-key attribute, speak label text
+    if (target.dataset.labelKey) {
+      speakLabelText(target.dataset.labelKey);
+    }
+    // If button has data-input-for attribute, start voice input for associated field
+    else if (target.dataset.inputFor) {
+      startVoiceInputForField(target.dataset.inputFor);
+    }
+  });
+
+  // Handle form submit
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusMessage.textContent = '';
+    if (!form.checkValidity()) {
+      // Trigger native validation message
+      form.reportValidity();
+      return;
+    }
+    // Gather form data
+    const formData = {
+      name: form.name.value.trim(),
+      dob: form.dob.value,
+      placeOfBirth: form.placeOfBirth.value.trim(),
+      registrationNumber: form.registrationNumber.value.trim(),
+      gender: form.gender.value,
+      fatherName: form.fatherName.value.trim(),
+      motherName: form.motherName.value.trim(),
+      permanentAddress: form.permanentAddress.value.trim(),
+      language: currentLang
+    };
+
+    // Simulate backend submission - since no real backend, we just log and show success message
+    try {
+      // For demonstration, we do not actually call a backend to avoid errors.
+      console.log("Submitting data to backend:", formData);
+
+      // Fake delay:
+      await new Promise(r => setTimeout(r, 1000));
+
+      statusMessage.style.color = '#2e7d32';
+      statusMessage.textContent = (currentLang === 'en') ? 'Application submitted successfully!' : 'అప్లికేషన్ విజయవంతంగా సమర్పించబడింది!';
+      form.reset();
+    } catch(err) {
+      statusMessage.style.color = '#c62828';
+      statusMessage.textContent = (currentLang === 'en') ? 'Failed to submit application. Please try again later.' : 'అప్లికేషన్ సమర్పణ విఫలం. దయచేసి తరువాత మళ్లీ ప్రయత్నించండి.';
+      console.error(err);
+    }
+  });
+
+  // Load voices asynchronously (some browsers do not load voices immediately)
+  function loadVoicesAsync() {
+    return new Promise((resolve) => {
+      let voices = synth.getVoices();
+      if (voices.length !== 0) {
+        resolve(voices);
+      } else {
+        synth.onvoiceschanged = () => {
+          voices = synth.getVoices();
+          resolve(voices);
+        };
+      }
+    });
+  }
+
+  // Initialize
+  (async function init() {
+    await loadVoicesAsync();
+    updateLabels();
+    updateLanguageButtonsUI();
+  })();
+
+})();
+</script>
+</body>
+</html>
+
+```

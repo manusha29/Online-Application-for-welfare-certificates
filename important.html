@@ -1,0 +1,468 @@
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Application for Welfare Certificates</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f9fafb;
+            margin: 0;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: white;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 2rem 3rem 3rem 3rem;
+        }
+        h1 {
+            text-align: center;
+            font-weight: 700;
+            color: #1d4ed8;
+            margin-bottom: 2rem;
+            user-select: none;
+        }
+        .lang-switch {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .lang-switch button {
+            background-color: #3b82f6;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            margin: 0 0.3rem;
+            color: white;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            user-select: none;
+        }
+        .lang-switch button.active,
+        .lang-switch button:hover {
+            background-color: #2563eb;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+        }
+        label {
+            font-weight: 600;
+            color: #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        input[type="text"],
+        input[type="date"] {
+            flex-grow: 1;
+            padding: 0.5rem 0.75rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1.5px solid #cbd5e1;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 5px #3b82f6aa;
+        }
+        .mic-button {
+            background: #efefef;
+            border: 1px solid #cbd5e1;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+        .mic-button.active {
+            background-color: #ef4444;
+            border-color: #b91c1c;
+            color: white;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 #ef4444aa; }
+            70% { box-shadow: 0 0 0 10px #ef444400; }
+            100% { box-shadow: 0 0 0 0 #ef444400; }
+        }
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+        button[type="submit"] {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background-color: #1e40af;
+        }
+        .message {
+            margin-top: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" role="main" aria-labelledby="form-header">
+        <h1 id="form-header">APPLICATION FOR WELFARE CERTIFICATES</h1>
+
+        <div class="lang-switch" role="group" aria-label="Language selector">
+            <button type="button" id="lang-en" class="active" aria-pressed="true">English</button>
+            <button type="button" id="lang-te" aria-pressed="false">తెలుగు</button>
+            <button type="button" id="lang-hi" aria-pressed="false">हिन्दी</button>
+        </div>
+
+        <form action="/post"id="welfare-form" autocomplete="off" novalidate method="post">
+            <div>
+                <label for="applicantName" data-key="applicantName">Applicant Name</label>
+                <div class="input-row">
+                    <input type="text" id="applicantName" name="applicantName" placeholder="Enter applicant name" required aria-required="true" />
+                    <button type="button" aria-label="Start voice input for Applicant Name" class="mic-button" data-input="applicantName" title="Speak Applicant Name">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v11"></path><circle cx="12" cy="16" r="5"></circle></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <label for="fatherName" data-key="fatherName">Father Name</label>
+                <div class="input-row">
+                    <input type="text" id="fatherName" name="fatherName" placeholder="Enter father name" required aria-required="true" />
+                    <button type="button" aria-label="Start voice input for Father Name" class="mic-button" data-input="fatherName" title="Speak Father Name">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v11"></path><circle cx="12" cy="16" r="5"></circle></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <label for="village" data-key="village">Village</label>
+                <div class="input-row">
+                    <input type="text" id="village" name="village" placeholder="Enter village" required aria-required="true" />
+                    <button type="button" aria-label="Start voice input for Village" class="mic-button" data-input="village" title="Speak Village">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v11"></path><circle cx="12" cy="16" r="5"></circle></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <label for="mandal" data-key="mandal">Mandal</label>
+                <div class="input-row">
+                    <input type="text" id="mandal" name="mandal" placeholder="Enter mandal" required aria-required="true" />
+                    <button type="button" aria-label="Start voice input for Mandal" class="mic-button" data-input="mandal" title="Speak Mandal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v11"></path><circle cx="12" cy="16" r="5"></circle></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <label for="district" data-key="district">District</label>
+                <div class="input-row">
+                    <input type="text" id="district" name="district" placeholder="Enter district" required aria-required="true" />
+                    <button type="button" aria-label="Start voice input for District" class="mic-button" data-input="district" title="Speak District">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v11"></path><circle cx="12" cy="16" r="5"></circle></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <label for="dob" data-key="dob">Date of Birth</label>
+                <div class="input-row">
+                    <input type="date" id="dob" name="dob" placeholder="Enter date of birth" required aria-required="true" />
+                    <button type="button" aria-label="Start voice input for Date of Birth" class="mic-button" data-input="dob" title="Speak Date of Birth">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v11"></path><circle cx="12" cy="16" r="5"></circle></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <label for="caste" data-key="caste">Caste</label>
+                <div class="input-row">
+                    <input type="text" id="caste" name="caste" placeholder="Enter caste" required aria-required="true" />
+                    <button type="button" aria-label="Start voice input for Caste" class="mic-button" data-input="caste" title="Speak Caste">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v11"></path><circle cx="12" cy="16" r="5"></circle></svg>
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" aria-label="Submit application form">Submit</button>
+            <div id="message" class="message" role="alert" aria-live="polite"></div>
+        </form>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                header: "APPLICATION FOR WELFARE CERTIFICATES",
+                labels: {
+                    applicantName: "Applicant Name",
+                    fatherName: "Father Name",
+                    village: "Village",
+                    mandal: "Mandal",
+                    district: "District",
+                    dob: "Date of Birth",
+                    caste: "Caste"
+                },
+                placeholders: {
+                    applicantName: "Enter applicant name",
+                    fatherName: "Enter father name",
+                    village: "Enter village",
+                    mandal: "Enter mandal",
+                    district: "Enter district",
+                    dob: "Enter date of birth",
+                    caste: "Enter caste"
+                }
+            },
+            te: {
+                header: "కారుణ్య ధ్రువపత్రాల కోసం దరఖాస్తు",
+                labels: {
+                    applicantName: "అభ్యర్థి పేరు",
+                    fatherName: "తండ్రి పేరు",
+                    village: "గ్రామం",
+                    mandal: "మండలం",
+                    district: "జిల్లా",
+                    dob: "పుట్టిన తేది",
+                    caste: "జాతి"
+                },
+                placeholders: {
+                    applicantName: "అభ్యర్థి పేరు నమోదు చేయండి",
+                    fatherName: "తండ్రి పేరు నమోదు చేయండి",
+                    village: "గ్రామం నమోదు చేయండి",
+                    mandal: "మండలం నమోదు చేయండి",
+                    district: "జిల్లా నమోదు చేయండి",
+                    dob: "",
+                    caste: "జాతి నమోదు చేయండి"
+                }
+            },
+            hi: {
+                header: "कल्याण प्रमाणपत्र आवेदन",
+                labels: {
+                    applicantName: "आवेदक का नाम",
+                    fatherName: "पिता का नाम",
+                    village: "गांव",
+                    mandal: "मंडल",
+                    district: "जिला",
+                    dob: "जन्म तिथि",
+                    caste: "जाति"
+                },
+                placeholders: {
+                    applicantName: "आवेदक का नाम दर्ज करें",
+                    fatherName: "पिता का नाम दर्ज करें",
+                    village: "गांव दर्ज करें",
+                    mandal: "मंडल दर्ज करें",
+                    district: "जिला दर्ज करें",
+                    dob: "",
+                    caste: "जाति दर्ज करें"
+                }
+            }
+        };
+
+        let currentLang = 'en';
+
+        const btnEn = document.getElementById('lang-en');
+        const btnTe = document.getElementById('lang-te');
+        const btnHi = document.getElementById('lang-hi');
+        const headerEl = document.querySelector('h1');
+        const messageEl = document.getElementById('message');
+        const form = document.getElementById('welfare-form');
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            headerEl.textContent = translations[lang].header;
+            for (const key in translations[lang].labels) {
+                const label = document.querySelector(`label[data-key="${key}"]`);
+                if (label) label.textContent = translations[lang].labels[key];
+                const input = document.getElementById(key);
+                if (input && translations[lang].placeholders[key] !== undefined) {
+                    input.placeholder = translations[lang].placeholders[key];
+                }
+            }
+            btnEn.classList.toggle('active', lang === 'en');
+            btnTe.classList.toggle('active', lang === 'te');
+            btnHi.classList.toggle('active', lang === 'hi');
+            btnEn.setAttribute('aria-pressed', lang === 'en');
+            btnTe.setAttribute('aria-pressed', lang === 'te');
+            btnHi.setAttribute('aria-pressed', lang === 'hi');
+            messageEl.textContent = "";
+        }
+
+        btnEn.addEventListener('click', () => updateLanguage('en'));
+        btnTe.addEventListener('click', () => updateLanguage('te'));
+        btnHi.addEventListener('click', () => updateLanguage('hi'));
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert("Sorry, your browser does not support Speech Recognition. Microphone input will not be available.");
+        }
+
+        let recognition = null;
+        let activeMicBtn = null;
+
+        function startRecognition(button, inputId) {
+            if (!SpeechRecognition) return;
+
+            if (recognition && activeMicBtn === button) {
+                recognition.stop();
+                return;
+            }
+
+            if (recognition) {
+                recognition.stop();
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.lang = (currentLang === 'en' ? 'en-US' : (currentLang === 'te' ? 'te-IN' : 'hi-IN'));
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            if (activeMicBtn) activeMicBtn.classList.remove('active');
+            activeMicBtn = button;
+            activeMicBtn.classList.add('active');
+
+            recognition.start();
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                const input = document.getElementById(inputId);
+                if (input.type === 'date') {
+                    let dateValue = parseDateFromSpoken(transcript);
+                    if (dateValue) {
+                        input.value = dateValue;
+                    } else {
+                        input.value = "";
+                    }
+                } else {
+                    input.value = transcript;
+                }
+            };
+
+            recognition.onend = () => {
+                if (activeMicBtn) {
+                    activeMicBtn.classList.remove('active');
+                    activeMicBtn = null;
+                }
+            };
+
+            recognition.onerror = (event) => {
+                messageEl.textContent = "Speech recognition error: " + event.error;
+                if (activeMicBtn) {
+                    activeMicBtn.classList.remove('active');
+                    activeMicBtn = null;
+                }
+            };
+        }
+
+        function parseDateFromSpoken(spoken) {
+            const nums = spoken.match(/\d+/g);
+            if (!nums) return null;
+            if (nums.length === 3) {
+                let y, m, d;
+                if (nums[0] > 31) {
+                    y = nums[0];
+                    m = nums[1];
+                    d = nums[2];
+                } else {
+                    d = nums[0];
+                    m = nums[1];
+                    y = nums[2];
+                }
+                m = m.toString().padStart(2, '0');
+                d = d.toString().padStart(2, '0');
+                y = y.toString();
+                if (y.length === 2) y = '20' + y;
+                if (m >= 1 && m <= 12 && d >= 1 && d <= 31) {
+                    return `${y}-${m}-${d}`;
+                }
+            }
+            return null;
+        }
+
+        const micButtons = document.querySelectorAll('.mic-button');
+        micButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const inputId = btn.getAttribute('data-input');
+                startRecognition(btn, inputId);
+            });
+        });
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            messageEl.textContent = "";
+
+            if (!form.checkValidity()) {
+                messageEl.style.color = 'red';
+                messageEl.textContent = currentLang === 'te' ? "దయచేసి అన్ని అవసరమైన ఫీల్డులను పూరించండి." : 
+                                   currentLang === 'hi' ? "कृपया सभी आवश्यक फ़ील्ड भरें।" : "Please fill all required fields.";
+                return;
+            }
+
+            const formData = {
+                applicantName: form.applicantName.value.trim(),
+                fatherName: form.fatherName.value.trim(),
+                village: form.village.value.trim(),
+                mandal: form.mandal.value.trim(),
+                district: form.district.value.trim(),
+                dob: form.dob.value,
+                caste: form.caste.value.trim(),
+                language: currentLang
+            };
+
+            try {
+                const response = await fetch('https://your.backend.endpoint/api/welfare-application', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    messageEl.style.color = 'green';
+                    messageEl.textContent = currentLang === 'te' ? "దరఖాస్తు విజయవంతంగా సమర్పించబడింది!" :
+                                            currentLang === 'hi' ? "आवेदन सफलतापूर्वक जमा किया गया!" :
+                                            "Application submitted successfully!";
+                    form.reset();
+                } else {
+                    throw new Error("Failed to submit application.");
+                }
+            } catch (err) {
+                messageEl.style.color = 'red';
+                messageEl.textContent = currentLang === 'te' ? "దరఖాస్తు సమర్పించడంలో లోపం. దయచేసి మళ్లీ ప్రయత్నించండి." :
+                                        currentLang === 'hi' ? "आवेदन जमा करने में त्रुटि। कृपया पुनः प्रयास करें।" :
+                                        "Error submitting application. Please try again.";
+            }
+        });
+
+        updateLanguage(currentLang);
+    </script>
+</body>
+</html>
+```
