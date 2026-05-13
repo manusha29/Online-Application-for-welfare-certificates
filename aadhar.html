@@ -115,7 +115,7 @@
     }
 
     try {
-      const response = await fetch('http://localhost:3003/validate', {
+      const response = await fetch('http://localhost:3004/validate', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ aadhar, name }),
@@ -126,7 +126,7 @@
       if (data.valid) {
         messageDiv.textContent = 'Validation successful! You can proceed.';
         messageDiv.classList.add('success');
-        window.location.href = 'http://localhost:3027';
+        window.location.href = 'http://localhost:3028';
         // Here you can redirect or display an application form
         // window.location.href = 'application-form.html'; // example
       } else {
