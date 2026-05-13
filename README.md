@@ -1,2 +1,2 @@
 # Online-Application-for-welfare-certificates
-This project focuses on the development and implementation of an online system designed to generate welfare certificates for individuals .These certificates are critical for accessing various social services, benefits and identity verification processes.
+Developed a web-based platform that allows users to apply for identity and welfare certificates through a user-friendly interface. The system enhances efficiency and transparency by keeping users informed at every stage. Integrated notification services to provide timely updates, using technologies such as HTML5, Tailwind CSS, JavaScript, Express.js, MongoDB, and Twilio.
