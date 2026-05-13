@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 
 const app = express();
-const port = 3003;
+const port = 3004;
 
 app.use(cors());
 app.use(bodyParser.json());
